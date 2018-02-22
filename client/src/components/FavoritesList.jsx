@@ -3,7 +3,15 @@ import RecipeEntry from './RecipeEntry.jsx';
 
 var FavoritesList = (props) => {
   return (
-    <div>Favorites List</div>
+    <div>
+      <h3>Favorites List</h3>
+      {props.favoriteList.map((recipe) =>
+        <ul>
+          <div>{recipe.title} </div>
+          <div> <img src={recipe.image}alt="" /> </div>
+        </ul>   
+      )}
+    </div>
   );
 }
 
