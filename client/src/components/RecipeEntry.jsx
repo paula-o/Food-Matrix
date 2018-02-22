@@ -4,6 +4,7 @@ import React from 'react';
 var RecipeEntry = (props) => {
   return (
     <div>
+      
     </div>
   );
 }

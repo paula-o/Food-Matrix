@@ -23,7 +23,19 @@ class FocalRecipe extends React.Component {
     //console.log(props.recipeList);
     //POST request to send number
     //where should we parse the phone number?
-
+    //{number: ''}
+    var component = this;
+      $.ajax({
+        method: 'POST',
+        url: '/sendText', 
+        data: {number: component.state.phoneNumber},
+        success: (res) => {
+          console.log('phone number sent!')
+        },
+        error: (err) => {
+          console.log('phone number failed to send');
+        }
+    });
   }
 
   render() {
@@ -37,9 +49,8 @@ class FocalRecipe extends React.Component {
         <div>
           <h5>Ingredients List</h5>
             {this.props.focalRecipe.ingredients.map((ingredient) =>
-              <ul> {ingredient} </ul>
+              <ul key={ingredient}> {ingredient} </ul>
             )}
-
         </div>
         Add phone number: <input value={this.state.phoneNumber} onChange={this.onPhoneEntry}/>
         <button 

@@ -6,23 +6,25 @@ var AllRecipesList = (props) => {
   return (
     <div>
       <h3>All Recipes </h3>
-      {props.recipeList.map((recipe) =>
-        <ul>
-          <div>{recipe.title} </div>
-          <div> <img src={recipe.image}alt="" /> </div>
-        </ul>   
-      )}
+        {props.recipeList.map((recipe) =>
+          <ul>
+            <div>{recipe.title} </div>
+            <div> <img src={recipe.image}alt="" /> </div>
+          </ul>   
+        )}
     </div>
   );
 }
 
 export default AllRecipesList;
 
-// {props.recipeList.map((recipe) =>
-//   <RecipeEntry
-//     recipe={recipe} 
-//   />   
-// )} 
+
 
 
   
+// {props.recipeList.map((recipe) =>
+//         <ul>
+//           <div>{recipe.title} </div>
+//           <div> <img src={recipe.image}alt="" /> </div>
+//         </ul>   
+//       )}
