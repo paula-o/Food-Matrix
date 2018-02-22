@@ -5,9 +5,7 @@ const client = require('twilio')(
 );
 
 var sendMessage = function(req, res) {
-  console.log('sendMessage, ',req.body.number)
   return new Promise(function(resolve, reject) {
-    console.log('sendMessage, ',req.body.number)
     client.messages.create({
       from: '12028518182',
       to: req.body.number,
