@@ -11,15 +11,26 @@ import SearchUser from './SearchUser.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      recipeList: [], //array of all recipes that come back from search
+      favoriteList: [], //array of recipes associated with a user
+      focalRecipe: {}, //object that contains recipe url, image, includes recipe ingredients
 
-    this.state = {};
+
+    }
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
     return (
       <div>This works!
       
-      <FocalRecipe/>
+      <FocalRecipe
+      focalRecipe = {this.state.focalRecipe};
+      />
 
       <SearchRecipe/>
 

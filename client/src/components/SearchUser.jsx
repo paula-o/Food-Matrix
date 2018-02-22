@@ -3,7 +3,9 @@ import React from 'react';
 class SearchUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userSearch: ''
+    };
   }
 
   render() {
