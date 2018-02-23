@@ -4,13 +4,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const recipe = require('../database-mongo/RecipeIDData.js');
 const recipeList = require('../database-mongo/RecipeListData.js');
-const twilio = require('../helpers/twilioHelpers.js')
+const twilioHelpers = require('../helpers/twilioHelpers.js')
+const spoonacularHelpers = require('../helpers/spoonacularHelpers.js')
 const db = require('../database-mongo/index.js')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/db/save', (req, res) => res.send('save to db'));
+app.post('/db/save', (req, res) => {res.send('save to db')});
 
 app.post('/db/fetch', (req, res) => {
   var username = req.body.username;
@@ -18,14 +19,25 @@ app.post('/db/fetch', (req, res) => {
     .then(data => res.send(data));
 });
 
-app.get('/recipeByIngredient', (req, res) => res.send(recipeList.recipeObj.fakeRecipes));
+app.get('/recipes', (req, res) => {
+  if(req.query.ingredients) {
+      res.send(req.query.ingredients)
+  } else {
+    res.status(400).send({
+       message: 'Pick Some Ingredients Please'
+    });
+  }
+})
 
-app.get('/recipeById', (req, res) => res.send(recipe.sampleRecipe));
+app.get('/recipe/:id', (req, res) => {
+  spoonacularHelpers.getIngredients(req.params.id)
+    .then(data => res.send(data))
+});
 
 app.post('/sendText', (req, res) => {
   var phoneNumber = req.body.number;
   console.log(phoneNumber)
-  twilio.sendMessage(phoneNumber)
+  twilioHelpers.sendMessage(phoneNumber)
     .then(res.send('message sent'))
 });
 
