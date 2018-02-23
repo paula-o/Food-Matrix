@@ -4,28 +4,58 @@ const app = express();
 const bodyParser = require('body-parser');
 const recipe = require('../database-mongo/RecipeIDData.js');
 const recipeList = require('../database-mongo/RecipeListData.js');
-const twilio = require('../helpers/twilioHelpers.js')
+const twilioHelpers = require('../helpers/twilioHelpers.js')
+const spoonacularHelpers = require('../helpers/spoonacularHelpers.js')
 const db = require('../database-mongo/index.js')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/db/save', (req, res) => res.send('save to db'));
+app.post('/db/save', (req, res) => {
+  var documentObj = req.body;
+  //sample body object
+  //{ username: 'greg7',
+  //   id: '1242414',
+  //   title: 'food',
+  //   image: 'awesomepic.jpg',
+  //   likes: '1351563'
+  // }
+  db.save(documentObj)
+    .then(response => res.send('saved to db'));
+});
 
-app.post('/db/fetch', (req, res) => {
-  var username = req.body.username;
+app.get('/db/fetch', (req, res) => {
+  //localhost:3000/db/fetch?username=username
+  var username = req.query.username
   db.retrieve(username)
     .then(data => res.send(data));
 });
 
-app.get('/recipeByIngredient', (req, res) => res.send(recipeList.recipeObj.fakeRecipes));
+app.get('/recipes', (req, res) => {
+  //localhost:3000/recipes?ingredients=apples,flour,butter
+  var ingredients = req.query.ingredients;
+  if(ingredients) {
+    spoonacularHelpers.getRecipesByIngredients(ingredients)
+      .then(data => res.send(data.data))
+  } else {
+    res.status(400).send({
+       message: 'Pick Some Ingredients Please'
+    });
+  }
+})
 
-app.get('/recipeById', (req, res) => res.send(recipe.sampleRecipe));
+app.get('/recipe/:id', (req, res) => {
+  //localhost:3000/recipe/615374
+  var recipeID = req.params.id;
+  spoonacularHelpers.getIngredients(recipeID)
+    .then(data => res.send(data))
+});
 
 app.post('/sendText', (req, res) => {
+  //localhost:3000/sendText  body{number: '13017413473'}
   var phoneNumber = req.body.number;
   console.log(phoneNumber)
-  twilio.sendMessage(phoneNumber)
+  twilioHelpers.sendMessage(phoneNumber)
     .then(res.send('message sent'))
 });
 

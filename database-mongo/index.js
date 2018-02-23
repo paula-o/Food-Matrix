@@ -30,16 +30,18 @@ let save = (documentObj) => {
   return new Promise(function(resolve, reject) {
     let document = new UserFavorite({
       username: documentObj.username,
-      recipeID: documentObj.recipe.id,
-      title: documentObj.recipe.title,
-      imageUrl: documentObj.recipe.image,
-      likes: documentObj.recipe.likes
+      recipeID: documentObj.id,
+      title: documentObj.title,
+      imageUrl: documentObj.image,
+      likes: documentObj.likes
     });
     document.save(function(err, favorite) {
-      if (err) return console.error(err);
+      if (err) reject(err);
+      resolve(favorite)
     });
   });
 };
+
 
 //Returning list of a user's favorites, sorted descending by popularity('likes')
 let retrieve = (username) => {
@@ -57,6 +59,9 @@ let retrieve = (username) => {
     });
   });
 };
+
+// retrieve('greg')
+//   .then((res) => console.log(res))
 
 module.exports = {
   save : save,
