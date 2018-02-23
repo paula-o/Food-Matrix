@@ -27,19 +27,24 @@ let UserFavorite = mongoose.model('UserFavorite', userFavoriteSchema);
 //Saving only relevant information from recipe object passed from front-end (see schema)
 //Auto-generates a "now date"
 let save = (documentObj) => {
-  let document = new UserFavorite({
-                                    username: documentObj.username,
-                                    recipeID: documentObj.recipe.id,
-                                    title: documentObj.recipe.title,
-                                    imageUrl: documentObj.recipe.image,
-                                    likes: documentObj.recipe.likes
-  });
-  document.save(function(err, favorite) {
-    if (err) return console.error(err);
-  });
+  return new Promise(function(resolve, reject) {
+    let document = new UserFavorite({
+      username: documentObj.username,
+      recipeID: documentObj.recipe.id,
+      title: documentObj.recipe.title,
+      imageUrl: documentObj.recipe.image,
+      likes: documentObj.recipe.likes
+    });
+    document.save(function(err, favorite) {
+      if (err) reject(err);
+      resolve(favorite);
+    });
+  })
 };
+
+
 // save({
-//   username:'greg',
+//   username:'greg2',
 //   recipe: {
 //     id:1242414,
 //     title:'food',
@@ -66,7 +71,7 @@ let retrieve = (username) => {
 };
 
 // retrieve('greg')
-// .then(console.log)
+//   .then((res) => console.log(res))
 
 module.exports = {
   save : save,

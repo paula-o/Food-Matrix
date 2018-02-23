@@ -11,17 +11,35 @@ const db = require('../database-mongo/index.js')
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/db/save', (req, res) => {res.send('save to db')});
+app.post('/db/save', (req, res) => {
+  //need to finish
+  // var documentObj = {
+  //   username:'greg3',
+  //     recipe: {
+  //       id:1242414,
+  //       title:'food',
+  //       image:'awsomepic.jpg',
+  //       likes:61928469
+  //     }
+  // }
+  db.save(documentObj)
+    .then(response => res.send('saved to db'));
+});
 
-app.post('/db/fetch', (req, res) => {
-  var username = req.body.username
+app.get('/db/fetch', (req, res) => {
+  var username = req.query.username
   db.retrieve(username)
-    .then(data => res.send(data));
+    .then(data => {
+      console.log(data)
+      res.send(data)
+    });
 });
 
 app.get('/recipes', (req, res) => {
-  if(req.query.ingredients) {
-      res.send(req.query.ingredients)
+  var ingredients = req.query.ingredients;
+  if(ingredients) {
+    spoonacularHelpers.getRecipesByIngredients(ingredients)
+      .then(data => res.send(data.data))
   } else {
     res.status(400).send({
        message: 'Pick Some Ingredients Please'
