@@ -26,7 +26,7 @@ class App extends React.Component {
     this.onRecipeSearch = this.onRecipeSearch.bind(this);
     this.onRecipeSearchClick = this.onRecipeSearchClick.bind(this);
   }
-
+  //comment
   // componentDidMount() {
   //   $.ajax({
   //     method: 'GET',
