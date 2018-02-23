@@ -3,12 +3,18 @@ const _ = require('lodash')
 const axios = require('axios')
 var Promise = require("bluebird");
 
-var getRecipesByIngredient = function(ingredients) {
+var getRecipesByIngredients = function(ingredients) {
+  ingredients = ingredients.split(',').join('%2C');
+  return axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=${ingredients}&limitLicense=false&number=20&ranking=1`, {
+    headers: {
+      'X-Mashape-Key': process.env.X_MASHAPE_KEY
+      },
+  });
 }
 
 var getRecipeByRecipeID = function(recipeID) {
   return axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeID}/information?includeNutrition=false`, {
-    headers: {'X-Mashape-Key': 'CPtcvnMkgKmshQbAjey2bnPOdy99p1mLzewjsn0EqLEzlis1jc'}
+    headers: {'X-Mashape-Key': process.env.X_MASHAPE_KEY}
   });
 }
 
@@ -25,5 +31,5 @@ var getIngredients = function(recipeID) {
 
 
 
-module.exports.getRecipesByIngredient = getRecipesByIngredient;
+module.exports.getRecipesByIngredients = getRecipesByIngredients;
 module.exports.getIngredients = getIngredients;

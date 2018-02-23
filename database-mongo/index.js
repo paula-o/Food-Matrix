@@ -41,6 +41,18 @@ let save = (documentObj) => {
   });
 };
 
+
+// save({
+//   username:'greg2',
+//   recipe: {
+//     id:1242414,
+//     title:'food',
+//     image:'awsomepic.jpg',
+//     likes:61928469
+//   }
+// });
+
+
 //Returning list of a user's favorites, sorted descending by popularity('likes')
 let retrieve = (username) => {
   return new Promise(function(resolve, reject) {
@@ -57,6 +69,9 @@ let retrieve = (username) => {
     });
   });
 };
+
+// retrieve('greg')
+//   .then((res) => console.log(res))
 
 module.exports = {
   save : save,
