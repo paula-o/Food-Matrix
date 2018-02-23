@@ -30,10 +30,10 @@ let save = (documentObj) => {
   return new Promise(function(resolve, reject) {
     let document = new UserFavorite({
       username: documentObj.username,
-      recipeID: documentObj.recipe.id,
-      title: documentObj.recipe.title,
-      imageUrl: documentObj.recipe.image,
-      likes: documentObj.recipe.likes
+      recipeID: documentObj.id,
+      title: documentObj.title,
+      imageUrl: documentObj.image,
+      likes: documentObj.likes
     });
     document.save(function(err, favorite) {
       if (err) reject(err);
