@@ -7,9 +7,8 @@ var FavoritesList = (props) => {
       <h3>Favorites List</h3>
       {props.favoriteList.map((recipe) =>
         <ul>
-          <div>{recipe.title} </div>
-          <div> <img src={recipe.image}alt="" /> </div>
-        </ul>   
+          <RecipeEntry recipe={recipe}/>
+        </ul>
       )}
     </div>
   );
