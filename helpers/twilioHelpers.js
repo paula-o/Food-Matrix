@@ -4,11 +4,11 @@ const client = require('twilio')(
   process.env.TWILIO_AUTH_TOKEN
 );
 
-var sendMessage = function(req, res) {
+var sendMessage = function(phoneNumber) {
   return new Promise(function(resolve, reject) {
     client.messages.create({
       from: '12028518182',
-      to: req.body.number,
+      to: phoneNumber,
       body: "message working"
     }).then((messsage) => console.log(message.sid));
   });
