@@ -12,30 +12,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/db/save', (req, res) => {
-  //need to finish
-  // var documentObj = {
-  //   username:'greg3',
-  //     recipe: {
-  //       id:1242414,
-  //       title:'food',
-  //       image:'awsomepic.jpg',
-  //       likes:61928469
-  //     }
+  var documentObj = req.body;
+  //sample body object
+  //{ username: 'greg7',
+  //   id: '1242414',
+  //   title: 'food',
+  //   image: 'awesomepic.jpg',
+  //   likes: '1351563'
   // }
   db.save(documentObj)
     .then(response => res.send('saved to db'));
 });
 
 app.get('/db/fetch', (req, res) => {
+  //localhost:3000/db/fetch?username=username
   var username = req.query.username
   db.retrieve(username)
-    .then(data => {
-      console.log(data)
-      res.send(data)
-    });
+    .then(data => res.send(data));
 });
 
 app.get('/recipes', (req, res) => {
+  //localhost:3000/recipes?ingredients=apples,flour,butter
   var ingredients = req.query.ingredients;
   if(ingredients) {
     spoonacularHelpers.getRecipesByIngredients(ingredients)
@@ -48,11 +45,14 @@ app.get('/recipes', (req, res) => {
 })
 
 app.get('/recipe/:id', (req, res) => {
-  spoonacularHelpers.getIngredients(req.params.id)
+  //localhost:3000/recipe/615374
+  var recipeID = req.params.id;
+  spoonacularHelpers.getIngredients(recipeID)
     .then(data => res.send(data))
 });
 
 app.post('/sendText', (req, res) => {
+  //localhost:3000/sendText  body{number: '13017413473'}
   var phoneNumber = req.body.number;
   console.log(phoneNumber)
   twilioHelpers.sendMessage(phoneNumber)
