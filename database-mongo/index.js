@@ -36,21 +36,11 @@ let save = (documentObj) => {
       likes: documentObj.likes
     });
     document.save(function(err, favorite) {
-      if (err) return console.error(err);
+      if (err) reject(err);
+      resolve(favorite)
     });
   });
 };
-
-
-// save({
-//   username:'greg2',
-//   recipe: {
-//     id:1242414,
-//     title:'food',
-//     image:'awsomepic.jpg',
-//     likes:61928469
-//   }
-// });
 
 
 //Returning list of a user's favorites, sorted descending by popularity('likes')
