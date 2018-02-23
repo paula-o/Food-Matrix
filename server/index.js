@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.post('/db/save', (req, res) => res.send('save to db'));
 
 app.post('/db/fetch', (req, res) => {
-  var username = req.body.username
+  var username = req.body.username;
   db.retrieve(username)
     .then(data => res.send(data));
 });
