@@ -54,15 +54,27 @@ class App extends React.Component {
   //modify the existing favorites list
   onUserSearchClick() {
     console.log(this.state.userSearch + ' was searched');
-    this.setState({
-      currentUser : this.state.userSearch
-    });
     //check if user is in database
     //on success:
     // this.setState({
     //   this.currentUser = this.state.userSearch
     //   this.favoritesList = res.favoriteList
     // })
+    let component = this;
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/db/fetch',
+      data: 'username=' + component.state.userSearch,
+      success: function(favRecipesData) {
+        component.setState({
+          favoriteList: favRecipesData
+        });
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+
   }
 
   onUserSearch(e) {
@@ -82,16 +94,13 @@ class App extends React.Component {
   //add get request for new recipes from server
   onRecipeSearchClick() {
     console.log(this.state.recipeSearch + ' was searched');
-    debugger;
     var component = this;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:3000/recipes',
-      data: 'ingredients=' + component.state.recipeSearch,
-      success:function(data) {
-        console.log(data);
+      url: 'http://localhost:3000/recipes/?ingredients=' + component.state.recipeSearch,
+      success:function(recipesData) {
         component.setState({
-          recipeList: data
+          recipeList: recipesData
         });
       },
       error: function(err) {
@@ -104,22 +113,30 @@ class App extends React.Component {
   //post request to store favorite in database with current user
   //need to account for case where there isn't a currentUser
   addFavorite (recipe) {
-    console.log('added to favorites');
-  //   $.ajax({
-  //     method: 'POST',
-  //     url: '/',
-  //     data: {
-  //       username: this.state.currentUser,
-  //       recipe: this.state.focalRecipe
-  //     }
-  //     success: (res) => {
-  //       console.log('success')
-  //     },
-  //     error: (err) => {
-  //       console.log('get request failed');
-  //     }
-  //   });
-  // }
+    var component = this;
+    if (component.state.userSearch === '') {
+      alert('Please enter a username before setting a favorite.');
+    } else {
+      console.log('added to favorites');
+      $.ajax({
+        method: 'POST',
+        url: '/db/save',
+        data: {
+          username: component.state.userSearch,
+          recipeID: component.state.focalRecipe.id,
+          title: component.state.focalRecipe.title,
+          image: component.state.focalRecipe.image,
+          likes: component.state.focalRecipe.likes
+        },
+        success: (res) => {
+          console.log('success');
+          component.onUserSearchClick();
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    }
   }
 
   render() {

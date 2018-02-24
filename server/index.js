@@ -26,7 +26,7 @@ app.post('/db/save', (req, res) => {
 
 app.get('/db/fetch', (req, res) => {
   //localhost:3000/db/fetch?username=username
-  var username = req.query.username
+  var username = req.query.username;
   db.retrieve(username)
     .then(data => res.send(data));
 });
@@ -36,13 +36,13 @@ app.get('/recipes', (req, res) => {
   var ingredients = req.query.ingredients;
   if(ingredients) {
     spoonacularHelpers.getRecipesByIngredients(ingredients)
-      .then(data => res.send(data.data))
+      .then(data => res.send(data.data));
   } else {
     res.status(400).send({
        message: 'Pick Some Ingredients Please'
     });
   }
-})
+});
 
 app.get('/recipe/:id', (req, res) => {
   //localhost:3000/recipe/615374
