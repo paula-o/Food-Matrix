@@ -13,9 +13,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUser: '',
-      recipeList: recipeObj.fakeRecipes, 
-      favoriteList: favoriteRecipes.fakeRecipes, 
-      focalRecipe: sampleRecipe, 
+      recipeList: recipeObj.fakeRecipes,
+      favoriteList: favoriteRecipes.fakeRecipes,
+      focalRecipe: sampleRecipe,
       userSearch: '',
       recipeSearch: ''
     };
@@ -30,7 +30,7 @@ class App extends React.Component {
   // componentDidMount() {
   //   $.ajax({
   //     method: 'GET',
-  //     url: '/', 
+  //     url: '/',
   //     success: (res) => {
   //       this.setState({
   //         recipeList: res.recipeList,
@@ -56,7 +56,7 @@ class App extends React.Component {
     console.log(this.state.userSearch + ' was searched');
     this.setState({
       currentUser : this.state.userSearch
-    })
+    });
     //check if user is in database
     //on success:
     // this.setState({
@@ -82,6 +82,22 @@ class App extends React.Component {
   //add get request for new recipes from server
   onRecipeSearchClick() {
     console.log(this.state.recipeSearch + ' was searched');
+    debugger;
+    var component = this;
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/recipes',
+      data: 'ingredients=' + component.state.recipeSearch,
+      success:function(data) {
+        console.log(data);
+        component.setState({
+          recipeList: data
+        });
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
   }
 
 
@@ -91,7 +107,7 @@ class App extends React.Component {
     console.log('added to favorites');
   //   $.ajax({
   //     method: 'POST',
-  //     url: '/', 
+  //     url: '/',
   //     data: {
   //       username: this.state.currentUser,
   //       recipe: this.state.focalRecipe
