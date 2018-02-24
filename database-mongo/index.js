@@ -13,7 +13,7 @@ let userFavoriteSchema = mongoose.Schema({
   username: String,
   recipeID: Number,
   title: String,
-  imageUrl: String,
+  image: String,
   dateCreated: {
     type: Date,
     default: Date.now
@@ -32,7 +32,7 @@ let save = (documentObj) => {
       username: documentObj.username,
       recipeID: documentObj.id,
       title: documentObj.title,
-      imageUrl: documentObj.image,
+      image: documentObj.image,
       likes: documentObj.likes
     });
     document.save(function(err, favorite) {
