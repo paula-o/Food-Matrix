@@ -31,15 +31,19 @@ class App extends React.Component {
   //update state based on recipe that comes back with that ID
   //so that we can parse ingredients
   onRecipeClick (recipe) {
-    console.log('recipeClicked!')
-    // $.ajax({
-    //   type: 'GET',
-    //   success: function() {
-    //     this.setState({
-    //       focalRecipe: recipe
-    //     });
-    //   }
-    // })
+    console.log('recipeClicked!');
+    console.log(recipe);
+    var component = this;
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/recipe/' + recipe.id,
+      success: function(recipe) {
+        console.log(recipe);
+        component.setState({
+          focalRecipe: recipe
+        });
+      }
+    });
   }
 
   onUserSearchClick() {
@@ -243,7 +247,7 @@ var sampleRecipe = {
   "title": "Cinnamon Streusel Muffins",
   "image": "https://spoonacular.com/recipeImages/65597-312x231.jpg",
   "likes": 0,
-  "ingredients": ['ingredient1', 'ingredient2', 'ingredient3', 'ingredient4', 'ingredient5','ingredient6', 'ingredient7', 'ingredient8']
+  "extendedIngredients": ['ingredient1', 'ingredient2', 'ingredient3', 'ingredient4', 'ingredient5','ingredient6', 'ingredient7', 'ingredient8']
 }
 
 export default App;

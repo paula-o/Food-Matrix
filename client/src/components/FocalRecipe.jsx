@@ -53,8 +53,8 @@ class FocalRecipe extends React.Component {
           </ul>
         <div>
           <h5>Ingredients List</h5>
-            {this.props.focalRecipe.ingredients.map((ingredient) =>
-              <ul key={ingredient}> {ingredient} </ul>
+            {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
+              <ul key={ingredient}> {ingredient.originalString} </ul>
             )}
         </div>
         Add phone number: <input value={this.state.phoneNumber} onChange={this.onPhoneEntry}/>

@@ -26,7 +26,7 @@ var parseRecipe = function(recipe) {
 
 var getIngredients = function(recipeID) {
   return getRecipeByRecipeID(recipeID)
-    .then(response => parseRecipe(response.data));
+    .then(response => response.data);
 };
 
 module.exports.getRecipesByIngredients = getRecipesByIngredients;
