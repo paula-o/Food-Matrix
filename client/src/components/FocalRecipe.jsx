@@ -41,7 +41,8 @@ class FocalRecipe extends React.Component {
   sendNumber() {
     console.log('sending phone number');
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
-    var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
+    var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name + ', ', '');
+    ingredientsMessage = ingredientsMessage.slice(0, -2);
       $.ajax({
         method: 'POST',
         url: '/sendText',
