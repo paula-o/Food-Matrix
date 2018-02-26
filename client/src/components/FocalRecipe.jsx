@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 class FocalRecipe extends React.Component {
   constructor(props) {
@@ -23,11 +24,16 @@ class FocalRecipe extends React.Component {
     //console.log(props.recipeList);
     //POST request to send number
     //{number: ''}
+    var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.ingredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
     var component = this;
       $.ajax({
         method: 'POST',
-        url: '/sendText', 
-        data: {number: component.state.phoneNumber},
+        url: '/sendText',
+        data: JSON.stringify({
+          number: component.state.phoneNumber,
+          ingredients: ingredientsMessage
+        }),
+        contentType: 'application/json',
         success: (res) => {
           console.log('phone number sent!')
         },
@@ -44,7 +50,7 @@ class FocalRecipe extends React.Component {
           <ul>
             <div>{this.props.focalRecipe.title} </div>
             <div> <img src={this.props.focalRecipe.image}alt="" /> </div>
-          </ul>   
+          </ul>
         <div>
           <h5>Ingredients List</h5>
             {this.props.focalRecipe.ingredients.map((ingredient) =>
@@ -52,13 +58,13 @@ class FocalRecipe extends React.Component {
             )}
         </div>
         Add phone number: <input value={this.state.phoneNumber} onChange={this.onPhoneEntry}/>
-        <button 
-          onClick={this.sendNumber}> 
+        <button
+          onClick={this.sendNumber}>
           Send
         </button>
-        <button 
-          onClick={this.props.addFavorite}> 
-          Favorite 
+        <button
+          onClick={this.props.addFavorite}>
+          Favorite
         </button>
       </div>
     );
