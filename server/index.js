@@ -55,9 +55,8 @@ app.post('/sendText', bodyParser.json(), (req, res) => {
   //localhost:3000/sendText  body{number: '13017413473'}
   var phoneNumber = req.body.number;
   var ingredients = req.body.ingredients;
-  console.log(ingredients);
-  // twilioHelpers.sendMessage(phoneNumber, ingredients)
-  //   .then(res.send('message sent'));
+  twilioHelpers.sendMessage(phoneNumber, ingredients)
+    .then(res.send('message sent'));
 });
 
 
