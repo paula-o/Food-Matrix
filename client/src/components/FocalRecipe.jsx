@@ -44,7 +44,7 @@ class FocalRecipe extends React.Component {
     var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.ingredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
       $.ajax({
         method: 'POST',
-        url: 'https://quiet-ravine-37270.herokuapp.com/sendText',
+        url: '/sendText',
         data: JSON.stringify({
           number: phoneNumber,
           ingredients: ingredientsMessage
