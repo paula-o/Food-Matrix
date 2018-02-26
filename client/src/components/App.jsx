@@ -32,18 +32,8 @@ class App extends React.Component {
   //so that we can parse ingredients
   onRecipeClick (recipe) {
     console.log('recipeClicked!')
-    console.log('recipe', recipe)
-  //server function: 
-  //   app.get('/recipe/:id', (req, res) => {
-  // //localhost:3000/recipe/615374
-  // var recipeID = req.params.id;
-  // spoonacularHelpers.getIngredients(recipeID)
-  //   .then(data => res.send(data))
-
-
     // $.ajax({
     //   type: 'GET',
-    //   url: 'recipe/:' + recipe.id
     //   success: function() {
     //     this.setState({
     //       focalRecipe: recipe
