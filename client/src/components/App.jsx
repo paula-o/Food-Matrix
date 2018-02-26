@@ -36,7 +36,7 @@ class App extends React.Component {
     var component = this;
     $.ajax({
       type: 'GET',
-      url: 'https://quiet-ravine-37270.herokuapp.com/recipe/' + recipe.id,
+      url: '/recipe/' + recipe.id,
       success: function(recipe) {
         console.log(recipe);
         component.setState({
@@ -51,7 +51,7 @@ class App extends React.Component {
     let component = this;
     $.ajax({
       type: 'GET',
-      url: 'https://quiet-ravine-37270.herokuapp.com/db/fetch',
+      url: '/db/fetch',
       data: 'username=' + component.state.userSearch,
       success: function(favRecipesData) {
         component.setState({
@@ -84,7 +84,7 @@ class App extends React.Component {
     var component = this;
     $.ajax({
       type: 'GET',
-      url: 'https://quiet-ravine-37270.herokuapp.com/recipes?ingredients=' + component.state.recipeSearch,
+      url: '/recipes?ingredients=' + component.state.recipeSearch,
       success:function(recipesData) {
         component.setState({
           recipeList: recipesData
@@ -107,7 +107,7 @@ class App extends React.Component {
       console.log('added to favorites');
       $.ajax({
         method: 'POST',
-        url: 'https://quiet-ravine-37270.herokuapp.com/db/save',
+        url: '/db/save',
         data: {
           username: component.state.userSearch,
           recipeID: component.state.focalRecipe.id,
