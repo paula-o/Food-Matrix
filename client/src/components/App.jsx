@@ -130,27 +130,30 @@ class App extends React.Component {
     return (
       <div>
 
-      <div>
+      {/* <div>
       Current user: {this.state.currentUser}
+      </div> */}
+
+      <div class="ui grid">
+        <FocalRecipe class="10 wide column"
+        focalRecipe = {this.state.focalRecipe}
+        recipeList = {this.state.recipeList}
+        addFavorite = {this.addFavorite}
+        />
+        <div class="6 wide column">
+          <SearchRecipe
+          onRecipeSearch = {this.onRecipeSearch}
+          onRecipeSearchClick = {this.onRecipeSearchClick}
+          recipeSearch = {this.state.recipeSearch}
+          />
+
+          <SearchUser
+          onUserSearchClick = {this.onUserSearchClick}
+          userSearch = {this.state.userSearch}
+          onUserSearch = {this.onUserSearch}
+          />
+        </div>
       </div>
-
-      <FocalRecipe
-      focalRecipe = {this.state.focalRecipe}
-      recipeList = {this.state.recipeList}
-      addFavorite = {this.addFavorite}
-      />
-
-      <SearchRecipe
-      onRecipeSearch = {this.onRecipeSearch}
-      onRecipeSearchClick = {this.onRecipeSearchClick}
-      recipeSearch = {this.state.recipeSearch}
-      />
-
-      <SearchUser
-      onUserSearchClick = {this.onUserSearchClick}
-      userSearch = {this.state.userSearch}
-      onUserSearch = {this.onUserSearch}
-      />
 
       <FavoritesList
       favoriteList = {this.state.favoriteList}
@@ -161,8 +164,6 @@ class App extends React.Component {
       onRecipeClick = {this.onRecipeClick}
       recipeList= {this.state.recipeList}
       />
-
-      <RecipeEntry/>
 
       </div>
     );
