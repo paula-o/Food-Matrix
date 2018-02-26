@@ -84,7 +84,7 @@ class App extends React.Component {
     var component = this;
     $.ajax({
       type: 'GET',
-      url: 'https://quiet-ravine-37270.herokuapp.com/recipes/?ingredients=' + component.state.recipeSearch,
+      url: 'https://quiet-ravine-37270.herokuapp.com/recipes?ingredients=' + component.state.recipeSearch,
       success:function(recipesData) {
         component.setState({
           recipeList: recipesData
