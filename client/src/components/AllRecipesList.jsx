@@ -8,7 +8,9 @@ var AllRecipesList = (props) => {
       <h3>All Recipes </h3>
         {props.recipeList.map((recipe) =>
           <ul>
-            <RecipeEntry recipe={recipe}/>
+            <RecipeEntry recipe={recipe}
+            onRecipeClick = {props.onRecipeClick}
+            />
           </ul>
         )}
     </div>

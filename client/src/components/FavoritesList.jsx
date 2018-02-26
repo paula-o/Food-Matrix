@@ -7,7 +7,9 @@ var FavoritesList = (props) => {
       <h3>Favorites List</h3>
       {props.favoriteList.map((recipe) =>
         <ul>
-          <RecipeEntry recipe={recipe}/>
+          <RecipeEntry recipe={recipe} 
+          onRecipeClick = {props.onRecipeClick}
+          />
         </ul>
       )}
     </div>
