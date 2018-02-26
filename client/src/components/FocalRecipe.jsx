@@ -42,12 +42,11 @@ class FocalRecipe extends React.Component {
     console.log('sending phone number');
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
     var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.ingredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
-    var component = this;
       $.ajax({
         method: 'POST',
         url: 'https://quiet-ravine-37270.herokuapp.com/sendText',
         data: JSON.stringify({
-          number: component.state.phoneNumber,
+          number: phoneNumber,
           ingredients: ingredientsMessage
         }),
         contentType: 'application/json',
