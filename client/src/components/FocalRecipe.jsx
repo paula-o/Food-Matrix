@@ -24,11 +24,16 @@ class FocalRecipe extends React.Component {
     //console.log(props.recipeList);
     //POST request to send number
     //{number: ''}
+    var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.ingredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
     var component = this;
       $.ajax({
         method: 'POST',
         url: '/sendText',
-        data: {number: component.state.phoneNumber},
+        data: JSON.stringify({
+          number: component.state.phoneNumber,
+          ingredients: ingredientsMessage
+        }),
+        contentType: 'application/json',
         success: (res) => {
           console.log('phone number sent!')
         },

@@ -51,12 +51,12 @@ app.get('/recipe/:id', (req, res) => {
     .then(data => res.send(data))
 });
 
-app.post('/sendText', (req, res) => {
+app.post('/sendText', bodyParser.json(), (req, res) => {
   //localhost:3000/sendText  body{number: '13017413473'}
   var phoneNumber = req.body.number;
-  console.log(phoneNumber)
-  twilioHelpers.sendMessage(phoneNumber)
-    .then(res.send('message sent'))
+  var ingredients = req.body.ingredients;
+  twilioHelpers.sendMessage(phoneNumber, ingredients)
+    .then(res.send('message sent'));
 });
 
 
