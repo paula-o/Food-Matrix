@@ -109,7 +109,7 @@ class App extends React.Component {
         method: 'POST',
         url: 'https://quiet-ravine-37270.herokuapp.com/db/save',
         data: {
-          username: componen.state.userSearch,
+          username: component.state.userSearch,
           recipeID: component.state.focalRecipe.id,
           title: component.state.focalRecipe.title,
           image: component.state.focalRecipe.image,
