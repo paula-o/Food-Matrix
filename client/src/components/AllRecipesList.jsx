@@ -6,6 +6,7 @@ var AllRecipesList = (props) => {
   return (
     <div>
       <h3>All Recipes </h3>
+      {console.log(props.recipeList)}
         {props.recipeList.map((recipe) =>
           <ul>
             <RecipeEntry recipe={recipe}

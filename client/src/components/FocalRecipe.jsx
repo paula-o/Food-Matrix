@@ -41,13 +41,12 @@ class FocalRecipe extends React.Component {
   sendNumber() {
     console.log('sending phone number');
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
-    var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.ingredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
-    var component = this;
+    var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
       $.ajax({
         method: 'POST',
         url: '/sendText',
         data: JSON.stringify({
-          number: component.state.phoneNumber,
+          number: phoneNumber,
           ingredients: ingredientsMessage
         }),
         contentType: 'application/json',
@@ -74,7 +73,7 @@ class FocalRecipe extends React.Component {
               <ul key={ingredient}> {ingredient.originalString} </ul>
             )}
         </div>
-        
+
         <form class="ui form">
           <div class="inline fields">
             <div class="field">

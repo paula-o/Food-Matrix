@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Promise = require("bluebird");
 
-mongoose.connect('mongodb://localhost/foodmatrix');
+mongoose.connect(process.env.MONGO);
 
 const db = mongoose.connection;
 

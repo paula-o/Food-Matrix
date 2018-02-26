@@ -61,4 +61,4 @@ app.post('/sendText', bodyParser.json(), (req, res) => {
 
 
 
-app.listen(3000, () => console.log('Food-Matrix listening on port 3000!'))
+app.listen(process.env.PORT || 3000, () => console.log('Food-Matrix listening on port 3000!'))

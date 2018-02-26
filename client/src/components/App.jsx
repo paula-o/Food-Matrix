@@ -36,7 +36,7 @@ class App extends React.Component {
     var component = this;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:3000/recipe/' + recipe.id,
+      url: '/recipe/' + recipe.id,
       success: function(recipe) {
         console.log(recipe);
         component.setState({
@@ -51,7 +51,7 @@ class App extends React.Component {
     let component = this;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:3000/db/fetch',
+      url: '/db/fetch',
       data: 'username=' + component.state.userSearch,
       success: function(favRecipesData) {
         component.setState({
@@ -84,7 +84,7 @@ class App extends React.Component {
     var component = this;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:3000/recipes/?ingredients=' + component.state.recipeSearch,
+      url: '/recipes?ingredients=' + component.state.recipeSearch,
       success:function(recipesData) {
         component.setState({
           recipeList: recipesData
