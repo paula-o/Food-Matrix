@@ -26,40 +26,24 @@ class App extends React.Component {
     this.onRecipeSearch = this.onRecipeSearch.bind(this);
     this.onRecipeSearchClick = this.onRecipeSearchClick.bind(this);
   }
-  //comment
-  // componentDidMount() {
-  //   $.ajax({
-  //     method: 'GET',
-  //     url: '/',
-  //     success: (res) => {
-  //       this.setState({
-  //         recipeList: res.recipeList,
-  //         favoriteList: res.favoriteList,
-  //         focalRecipe: res.recipeList[0]
-  //       });
-  //     },
-  //     error: (err) => {
-  //       console.log('get request failed');
-  //     }
-  //   });
-  // }
 
+  //need to add another api call based on recipe id
+  //update state based on recipe that comes back with that ID
+  //so that we can parse ingredients
   onRecipeClick (recipe) {
-    this.setState({
-      focalRecipe: recipe
-    });
+    console.log('recipeClicked!')
+    // $.ajax({
+    //   type: 'GET',
+    //   success: function() {
+    //     this.setState({
+    //       focalRecipe: recipe
+    //     });
+    //   }
+    // })
   }
 
-  //get request for list of favorites
-  //modify the existing favorites list
   onUserSearchClick() {
     console.log(this.state.userSearch + ' was searched');
-    //check if user is in database
-    //on success:
-    // this.setState({
-    //   this.currentUser = this.state.userSearch
-    //   this.favoritesList = res.favoriteList
-    // })
     let component = this;
     $.ajax({
       type: 'GET',
@@ -74,7 +58,6 @@ class App extends React.Component {
         console.log(err);
       }
     });
-
   }
 
   onUserSearch(e) {
@@ -167,6 +150,7 @@ class App extends React.Component {
 
       <FavoritesList
       favoriteList = {this.state.favoriteList}
+      onRecipeClick = {this.onRecipeClick}
       />
 
       <AllRecipesList
