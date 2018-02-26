@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Promise = require("bluebird");
 
-mongoose.connect('mongodb://localhost/foodmatrix');
+mongoose.connect('mongodb://heroku_0lnrs25d:7jep4l5o715kudm5r0ov3cfepr@ds249398.mlab.com:49398/heroku_0lnrs25d');
 
 const db = mongoose.connection;
 

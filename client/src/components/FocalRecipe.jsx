@@ -45,7 +45,7 @@ class FocalRecipe extends React.Component {
     var component = this;
       $.ajax({
         method: 'POST',
-        url: '/sendText',
+        url: 'https://quiet-ravine-37270.herokuapp.com/sendText',
         data: JSON.stringify({
           number: component.state.phoneNumber,
           ingredients: ingredientsMessage
@@ -74,7 +74,7 @@ class FocalRecipe extends React.Component {
               <ul key={ingredient}> {ingredient.originalString} </ul>
             )}
         </div>
-        
+
         <form class="ui form">
           <div class="inline fields">
             <div class="field">
