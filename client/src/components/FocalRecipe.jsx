@@ -6,24 +6,41 @@ class FocalRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      phoneNumber: ''
+      phoneNumber: '',
+      areaCode: '',
+      prefix: '',
+      lineNum: ''
     };
-    this.onPhoneEntry = this.onPhoneEntry.bind(this);
     this.sendNumber = this.sendNumber.bind(this);
+    this.onAreaCodeEntry = this.onAreaCodeEntry.bind(this);
+    this.onPrefixEntry = this.onPrefixEntry.bind(this);
+    this.onLineNumEntry = this.onLineNumEntry.bind(this);
   }
 
-  onPhoneEntry(e) {
+  onAreaCodeEntry(e) {
     this.setState({
-      phoneNumber: e.target.value
+      areaCode: e.target.value
+    })
+    console.log(e.target.value);
+  }
+
+  onPrefixEntry(e) {
+    this.setState({
+      prefix: e.target.value
+    })
+    console.log(e.target.value);
+  }
+
+  onLineNumEntry(e) {
+    this.setState({
+      lineNum: e.target.value
     })
     console.log(e.target.value);
   }
 
   sendNumber() {
     console.log('sending phone number');
-    //console.log(props.recipeList);
-    //POST request to send number
-    //{number: ''}
+    var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
     var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.ingredients.reduce((ingredients, ingredient) => ingredients + ', ' + ingredient);
     var component = this;
       $.ajax({
@@ -57,7 +74,28 @@ class FocalRecipe extends React.Component {
               <ul key={ingredient}> {ingredient.originalString} </ul>
             )}
         </div>
-        Add phone number: <input value={this.state.phoneNumber} onChange={this.onPhoneEntry}/>
+        
+        <form class="ui form">
+          <div class="inline fields">
+            <div class="field">
+              <label>Phone Number</label>
+              <div class="ui input">
+                <input value={this.state.areaCode} onChange={this.onAreaCodeEntry} type="text" placeholder="(xxx)" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui input">
+                <input value={this.state.prefix} onChange={this.onPrefixEntry} type="text" placeholder="xxx" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui input">
+                <input value={this.state.lineNum} onChange={this.onLineNumEntry} type="text" placeholder="xxxx" />
+              </div>
+            </div>
+          </div>
+        </form>
+
         <button
           onClick={this.sendNumber}>
           Send
