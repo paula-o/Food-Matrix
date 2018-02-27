@@ -1,6 +1,5 @@
 import React from 'react';
 import RecipeEntry from './RecipeEntry.jsx';
-import recipeObj from '../../../database-mongo/RecipeListData.js';
 
 var AllRecipesList = (props) => {
   return (
