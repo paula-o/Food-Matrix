@@ -91,13 +91,15 @@ class App extends React.Component {
       recipeSearch: e.target.value
     });
     console.log(this.state.recipeSearch);
+
   }
 
   //add get request for new recipes from server
-  onRecipeSearchClick() {
+  onRecipeSearchClick(e) {
+    e.preventDefault();
     console.log(this.state.recipeSearch + ' was searched');
     var component = this;
-    $.ajax({
+    $.ajax({}
       type: 'GET',
       url: '/recipes?ingredients=' + component.state.recipeSearch,
       success:function(recipesData) {
