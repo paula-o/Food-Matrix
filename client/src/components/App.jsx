@@ -99,7 +99,7 @@ class App extends React.Component {
     e.preventDefault();
     console.log(this.state.recipeSearch + ' was searched');
     var component = this;
-    $.ajax({}
+    $.ajax({
       type: 'GET',
       url: '/recipes?ingredients=' + component.state.recipeSearch,
       success:function(recipesData) {
@@ -151,36 +151,36 @@ class App extends React.Component {
     return (
       <div>
       <div class="ui two column stackable grid">
-      <div class="column">
-      <div class="ui segment">
-        <div >
-          <FocalRecipe
-          focalRecipe = {this.state.focalRecipe}
-          recipeList = {this.state.recipeList}
-          addFavorite = {this.addFavorite}
-          favoriteError = {this.state.favoriteError}
-          />
+        <div class="column">
+          <div class="ui segment">
+            <div >
+              <FocalRecipe
+              focalRecipe = {this.state.focalRecipe}
+              recipeList = {this.state.recipeList}
+              addFavorite = {this.addFavorite}
+              favoriteError = {this.state.favoriteError}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
 
-      <div class="column">
-      <div class="ui segment">
-        <div>
-          <SearchRecipe
-          onRecipeSearch = {this.onRecipeSearch}
-          onRecipeSearchClick = {this.onRecipeSearchClick}
-          recipeSearch = {this.state.recipeSearch}
-          />
+        <div class="column">
+          <div class="ui segment">
+            <div>
+              <SearchRecipe
+              onRecipeSearch = {this.onRecipeSearch}
+              onRecipeSearchClick = {this.onRecipeSearchClick}
+              recipeSearch = {this.state.recipeSearch}
+              />
 
-          <SearchUser
-          onUserSearchClick = {this.onUserSearchClick}
-          userSearch = {this.state.userSearch}
-          onUserSearch = {this.onUserSearch}
-          />
+              <SearchUser
+              onUserSearchClick = {this.onUserSearchClick}
+              userSearch = {this.state.userSearch}
+              onUserSearch = {this.onUserSearch}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
       </div>
 
       <FavoritesList
