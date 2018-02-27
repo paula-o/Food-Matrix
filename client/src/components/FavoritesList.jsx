@@ -9,7 +9,7 @@ var FavoritesList = (props) => {
 
       <div class="ui five link cards">
         {props.favoriteList.map((recipe) =>
-          <div class="card">
+          <div class="card" onClick = {() => props.onRecipeClick(recipe)}>
 
             <div class="image">
               <img src={recipe.image}/>

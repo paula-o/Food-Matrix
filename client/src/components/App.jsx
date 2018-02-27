@@ -44,7 +44,6 @@ class App extends React.Component {
 
   onRecipeClick (recipe) {
     console.log('recipeClicked!');
-    console.log(recipe);
     var component = this;
     $.ajax({
       type: 'GET',
