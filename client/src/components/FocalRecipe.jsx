@@ -89,7 +89,7 @@ class FocalRecipe extends React.Component {
           <div class="extra content">
             <span>
               {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
-              <ul key={ingredient}> {ingredient.originalString} </ul>
+              <ul> <input type="checkbox"/> {ingredient.originalString} </ul>
               )}
             </span>
           </div>
@@ -134,7 +134,7 @@ class FocalRecipe extends React.Component {
           <button
               class="ui button"
               onClick={this.sendNumber}>
-              Send
+              Send Text
           </button>
           <button
               class="ui red button"

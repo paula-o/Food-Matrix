@@ -7,7 +7,7 @@ var FavoritesList = (props) => {
     <div class="ui segment">
       <h3>Favorites </h3>
 
-      <div class="ui link cards">
+      <div class="ui five link cards">
         {props.favoriteList.map((recipe) =>
           <div class="card">
 
@@ -30,7 +30,9 @@ var FavoritesList = (props) => {
 
           </div>
         )}
-      </div>      
+      </div>    
+
+
     </div>
   );
 }

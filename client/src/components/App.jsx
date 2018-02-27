@@ -159,7 +159,10 @@ class App extends React.Component {
           favoriteError = {this.state.favoriteError}
           />
         </div>
-        <div >
+      </div>
+
+      <div class="ui segment">
+        <div>
           <SearchRecipe
           onRecipeSearch = {this.onRecipeSearch}
           onRecipeSearchClick = {this.onRecipeSearchClick}

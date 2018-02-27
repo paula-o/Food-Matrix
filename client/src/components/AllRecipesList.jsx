@@ -6,7 +6,7 @@ var AllRecipesList = (props) => {
     <div class="ui segment">
       <h3>All Recipes </h3>
 
-      <div class="ui link cards">
+      <div class="ui five link cards">
         {props.recipeList.map((recipe) =>
           <div class="card">
 
