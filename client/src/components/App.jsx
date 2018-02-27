@@ -59,7 +59,7 @@ class App extends React.Component {
   }
 
   onUserSearchClick() {
-    console.log(this.state.userSearch, 'was searched')
+    console.log(this.state.userSearch, 'was clicked')
     this.setState({
       currentUser: this.state.userSearch
     })
@@ -150,8 +150,8 @@ class App extends React.Component {
     return (
       <div>
 
-      <div class="ui grid">
-        <div class="eight wide column">
+      <div class="ui segment">
+        <div >
           <FocalRecipe
           focalRecipe = {this.state.focalRecipe}
           recipeList = {this.state.recipeList}
@@ -159,7 +159,7 @@ class App extends React.Component {
           favoriteError = {this.state.favoriteError}
           />
         </div>
-        <div class="eight wide column">
+        <div >
           <SearchRecipe
           onRecipeSearch = {this.onRecipeSearch}
           onRecipeSearchClick = {this.onRecipeSearchClick}

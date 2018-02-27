@@ -74,19 +74,29 @@ class FocalRecipe extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <h3>Main Recipe</h3>
-            <ul>
-              <div>{this.props.focalRecipe.title} </div>
-              <div> <img src={this.props.focalRecipe.image}alt="" /> </div>
-            </ul>
-          <div>
-            <h5>Ingredients</h5>
+
+      <div class="ui link cards">
+        <div class="card">
+          <h3>{this.props.focalRecipe.title}</h3>
+          <div class="image">
+            <img src={this.props.focalRecipe.image}/>
+          </div>
+
+          <div class="content">
+            <div class="header">Ingredients</div>
+          </div>
+
+          <div class="extra content">
+            <span>
               {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
-                <ul key={ingredient}> {ingredient.originalString} </ul>
+              <ul key={ingredient}> {ingredient.originalString} </ul>
               )}
+            </span>
           </div>
         </div>
+      </div>
+
+
 
         <form class="ui form">
           <label>Text Ingredients</label>
@@ -139,3 +149,19 @@ class FocalRecipe extends React.Component {
 }
 
 export default FocalRecipe;
+
+
+
+   // <div>
+   //        <h3>Main Recipe</h3>
+   //          <ul>
+   //            <div>{this.props.focalRecipe.title} </div>
+   //            <div> <img src={this.props.focalRecipe.image}alt="" /> </div>
+   //          </ul>
+   //        <div>
+   //          <h5>Ingredients</h5>
+   //            {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
+   //              <ul key={ingredient}> {ingredient.originalString} </ul>
+   //            )}
+   //        </div>
+   //      </div>
