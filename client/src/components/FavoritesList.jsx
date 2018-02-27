@@ -5,7 +5,7 @@ import RecipeEntry from './RecipeEntry.jsx';
 var FavoritesList = (props) => {
   return (
     <div>
-      <h3 class="ui header">Favorites List</h3>
+      <h3 class="ui header">{props.currentUser} Favorites</h3>
       <div class="ui grid">
         {props.favoriteList.map((recipe) =>
           <ul>
