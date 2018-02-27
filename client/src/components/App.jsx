@@ -60,7 +60,8 @@ class App extends React.Component {
   }
 
   //search for username in database and pull all favorited recipes for that user
-  onUserSearchClick() {
+  onUserSearchClick(e) {
+    e.preventDefault();
     console.log(this.state.userSearch, 'was clicked')
     this.setState({
       currentUser: this.state.userSearch
