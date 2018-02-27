@@ -165,7 +165,7 @@ class App extends React.Component {
         </div>
 
         <div class="column">
-          <div class="ui segment">
+          <div class="ui column">
             <div>
               <SearchRecipe
               onRecipeSearch = {this.onRecipeSearch}
