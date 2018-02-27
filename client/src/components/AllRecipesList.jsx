@@ -8,7 +8,7 @@ var AllRecipesList = (props) => {
 
       <div class="ui five link cards">
         {props.recipeList.map((recipe) =>
-          <div class="card">
+          <div class="card" onClick = {() => props.onRecipeClick(recipe)}>
 
             <div class="image">
               <img src={recipe.image}/>
