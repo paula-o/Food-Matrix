@@ -99,7 +99,7 @@ class App extends React.Component {
     e.preventDefault();
     console.log(this.state.recipeSearch + ' was searched');
     var component = this;
-    $.ajax({
+    $.ajax({}
       type: 'GET',
       url: '/recipes?ingredients=' + component.state.recipeSearch,
       success:function(recipesData) {
