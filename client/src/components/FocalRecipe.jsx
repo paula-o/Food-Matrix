@@ -40,17 +40,19 @@ class FocalRecipe extends React.Component {
     })
   }
 
+  //send text message to user-inputted phone number, containing ingredients from recipe data loaded into the focal recipe component
   sendNumber() {
     console.log('phoneclicked');
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
     if (phoneNumber.length !== 11) {
       this.setState({
-        phoneError: true 
+        phoneError: true
       });
     } else {
       this.setState({
-        phoneError: false 
+        phoneError: false
       });
+      //Overly complex algorithm for creating ingredients string to send through text
       var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name + ', ', '');
       ingredientsMessage = ingredientsMessage.slice(0, -2);
       $.ajax({
@@ -118,14 +120,14 @@ class FocalRecipe extends React.Component {
               </div>
           </div>
         </form>
-        {  
-          this.state.phoneError ? 
+        {
+          this.state.phoneError ?
             <ErrorMessage
               message = {"Invalid Phone Number"}
             /> : null
         }
-        {  
-          this.props.favoriteError ? 
+        {
+          this.props.favoriteError ?
             <ErrorMessage
               message = {"Enter a username before adding a favorite"}
             /> : null

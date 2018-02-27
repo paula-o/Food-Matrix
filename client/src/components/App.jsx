@@ -28,6 +28,7 @@ class App extends React.Component {
     this.onRecipeSearchClick = this.onRecipeSearchClick.bind(this);
   }
 
+//When page loads, add in pot roast as featured recipe
   componentDidMount() {
     var component = this;
     $.ajax({
@@ -42,6 +43,7 @@ class App extends React.Component {
     });
   }
 
+  //When recipe in either favorites or all recipes list is clicked, make API request for more detailed data object for target recipe and load into focal recipe component
   onRecipeClick (recipe) {
     console.log('recipeClicked!');
     var component = this;
@@ -57,6 +59,7 @@ class App extends React.Component {
     });
   }
 
+  //search for username in database and pull all favorited recipes for that user
   onUserSearchClick() {
     console.log(this.state.userSearch, 'was clicked')
     this.setState({
@@ -121,20 +124,19 @@ class App extends React.Component {
     });
   }
 
-  //post request to store favorite in database with current user
-  //need to account for case where there isn't a currentUser
+  //post request to store favorite in database for user
   addFavorite (recipe) {
-    console.log('clicked')
+    console.log('clicked');
     var component = this;
     if (component.state.userSearch === '') {
       this.setState({
         favoriteError: true
-      })
-      console.log(this.state.favoriteError, 'error')
+      });
+      console.log(this.state.favoriteError, 'error');
     } else {
       this.setState({
         favoriteError: false
-      })
+      });
       $.ajax({
         method: 'POST',
         url: '/db/save',

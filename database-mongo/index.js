@@ -60,8 +60,6 @@ let retrieve = (username) => {
   });
 };
 
-// retrieve('greg')
-//   .then((res) => console.log(res))
 
 module.exports = {
   save : save,
