@@ -17,7 +17,8 @@ class App extends React.Component {
       favoriteList: favoriteRecipes.fakeRecipes,
       focalRecipe: sampleRecipe,
       userSearch: '',
-      recipeSearch: ''
+      recipeSearch: '',
+      favoriteError: false
     };
     this.onRecipeClick = this.onRecipeClick.bind(this);
     this.addFavorite = this.addFavorite.bind(this);
@@ -58,6 +59,7 @@ class App extends React.Component {
   }
 
   onUserSearchClick() {
+    console.log(this.state.userSearch, 'was searched')
     this.setState({
       currentUser: this.state.userSearch
     })
@@ -113,11 +115,17 @@ class App extends React.Component {
   //post request to store favorite in database with current user
   //need to account for case where there isn't a currentUser
   addFavorite (recipe) {
+    console.log('clicked')
     var component = this;
     if (component.state.userSearch === '') {
-      alert('Please enter a username before setting a favorite.');
+      this.setState({
+        favoriteError: true
+      })
+      console.log(this.state.favoriteError, 'error')
     } else {
-      console.log('added to favorites');
+      this.setState({
+        favoriteError: false
+      })
       $.ajax({
         method: 'POST',
         url: '/db/save',
@@ -129,7 +137,6 @@ class App extends React.Component {
           likes: component.state.focalRecipe.likes
         },
         success: (res) => {
-          console.log('success');
           component.onUserSearchClick();
         },
         error: (err) => {
@@ -142,12 +149,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
+
       <div class="ui grid">
         <div class="eight wide column">
           <FocalRecipe
           focalRecipe = {this.state.focalRecipe}
           recipeList = {this.state.recipeList}
           addFavorite = {this.addFavorite}
+          favoriteError = {this.state.favoriteError}
           />
         </div>
         <div class="eight wide column">

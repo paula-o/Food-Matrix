@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import ErrorMessage from './Error.jsx';
 
+const inputStyle = {
+  width: 50
+}
 
 class FocalRecipe extends React.Component {
   constructor(props) {
@@ -45,6 +48,9 @@ class FocalRecipe extends React.Component {
         phoneError: true 
       });
     } else {
+      this.setState({
+        phoneError: false 
+      });
       var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name + ', ', '');
       ingredientsMessage = ingredientsMessage.slice(0, -2);
       $.ajax({
@@ -63,20 +69,19 @@ class FocalRecipe extends React.Component {
         }
       });
     }
-    //preventDefault();
   }
 
   render() {
     return (
       <div>
         <div>
-          <h3>Focal Recipe</h3>
+          <h3>Main Recipe</h3>
             <ul>
               <div>{this.props.focalRecipe.title} </div>
               <div> <img src={this.props.focalRecipe.image}alt="" /> </div>
             </ul>
           <div>
-            <h5>Ingredients List</h5>
+            <h5>Ingredients</h5>
               {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
                 <ul key={ingredient}> {ingredient.originalString} </ul>
               )}
@@ -84,23 +89,21 @@ class FocalRecipe extends React.Component {
         </div>
 
         <form class="ui form">
-                          <label>Phone Number</label>
-
+          <label>Text Ingredients</label>
           <div class="inline fields">
               <div class="field">
-
-                <div class="ui input">
-                  <input value={this.state.areaCode} onChange={this.onAreaCodeEntry} type="text" placeholder="(xxx)" />
+                <div class="ui mini input">
+                  <input style={inputStyle} value={this.state.areaCode} onChange={this.onAreaCodeEntry} type="text" placeholder="(xxx)" />
                 </div>
               </div>
               <div class="field">
-                <div class="ui input">
-                  <input value={this.state.prefix} onChange={this.onPrefixEntry} type="text" placeholder="xxx" />
+                <div class="ui mini input">
+                  <input style={inputStyle} value={this.state.prefix} onChange={this.onPrefixEntry} type="text" placeholder="xxx" />
                 </div>
               </div>
               <div class="field">
-                <div class="ui input">
-                  <input value={this.state.lineNum} onChange={this.onLineNumEntry} type="text" placeholder="xxxx" />
+                <div class="ui mini input">
+                  <input style={inputStyle} value={this.state.lineNum} onChange={this.onLineNumEntry} type="text" placeholder="xxxx" />
                 </div>
               </div>
           </div>
@@ -109,6 +112,12 @@ class FocalRecipe extends React.Component {
           this.state.phoneError ? 
             <ErrorMessage
               message = {"Invalid Phone Number"}
+            /> : null
+        }
+        {  
+          this.props.favoriteError ? 
+            <ErrorMessage
+              message = {"Enter a username before adding a favorite"}
             /> : null
         }
         <div>
