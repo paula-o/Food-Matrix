@@ -159,9 +159,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class="ui container">
       <div class="ui two column stackable grid">
-        <div class="column">
+        <div class="ten wide column">
           <div class="ui segment">
             <div >
               <FocalRecipe
@@ -174,8 +174,8 @@ class App extends React.Component {
           </div>
         </div>
 
-        <div class="column">
-          <div class="ui column">
+        <div class="six wide column">
+          <div class="ui segment">
             <div>
               <SearchRecipe
               onRecipeSearch = {this.onRecipeSearch}

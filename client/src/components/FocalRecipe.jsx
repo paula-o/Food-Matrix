@@ -77,15 +77,16 @@ class FocalRecipe extends React.Component {
     return (
       <div>
 
-      <div class="ui link cards">
-        <div class="card">
+      <div class="ui two column stackable grid">
+        <div class="10 wide column">
           <h3>{this.props.focalRecipe.title}</h3>
-          <div class="image">
+          <div class="ui centered image">
             <img src={this.props.focalRecipe.image}/>
           </div>
-
+        </div>
+        <div class="6 wide column">
           <div class="content">
-            <div class="header">Ingredients</div>
+            <div class="ui centered header small">Ingredients</div>
           </div>
 
           <div class="extra content">
@@ -95,25 +96,26 @@ class FocalRecipe extends React.Component {
               )}
             </span>
           </div>
-        </div>
+          </div>
+
       </div>
 
 
 
         <form class="ui form">
-          <label>Text Ingredients</label>
+          <div class="ui header small">Text Ingredients</div>
           <div class="inline fields">
-              <div class="field">
+              <div class="five wide field">
                 <div class="ui mini input">
                   <input style={inputStyle} value={this.state.areaCode} onChange={this.onAreaCodeEntry} type="text" placeholder="(xxx)" />
                 </div>
               </div>
-              <div class="field">
+              <div class="five wide field">
                 <div class="ui mini input">
                   <input style={inputStyle} value={this.state.prefix} onChange={this.onPrefixEntry} type="text" placeholder="xxx" />
                 </div>
               </div>
-              <div class="field">
+              <div class="six wide field">
                 <div class="ui mini input">
                   <input style={inputStyle} value={this.state.lineNum} onChange={this.onLineNumEntry} type="text" placeholder="xxxx" />
                 </div>
@@ -132,7 +134,7 @@ class FocalRecipe extends React.Component {
               message = {"Enter a username before adding a favorite"}
             /> : null
         }
-        <div>
+        <div class="two ui buttons">
           <button
               class="ui button"
               onClick={this.sendNumber}>
