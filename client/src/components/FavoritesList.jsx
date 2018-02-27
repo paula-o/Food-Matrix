@@ -4,14 +4,16 @@ import RecipeEntry from './RecipeEntry.jsx';
 var FavoritesList = (props) => {
   return (
     <div>
-      <h3>Favorites List</h3>
-      {props.favoriteList.map((recipe) =>
-        <ul>
-          <RecipeEntry recipe={recipe} 
-          onRecipeClick = {props.onRecipeClick}
-          />
-        </ul>
-      )}
+      <h3 class="ui header">Favorites List</h3>
+      <div class="ui grid">
+        {props.favoriteList.map((recipe) =>
+          <ul>
+            <RecipeEntry recipe={recipe}
+            onRecipeClick = {props.onRecipeClick}
+            />
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

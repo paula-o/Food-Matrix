@@ -4,12 +4,16 @@ import React from 'react';
 var SearchUser = (props) => {
   return (
     <div>
-      <h5>Friend Search</h5>
-      <input value={props.userSearch} onChange={props.onUserSearch}/>
-      <button 
-        onClick={props.onUserSearchClick}> 
-        Search
-      </button>
+      <form class="ui form">
+        <div class="ui field">
+          <label>Friend Search</label>
+          <input value={props.userSearch} onChange={props.onUserSearch}/>
+        </div>
+        <button class="ui button"
+          onClick={props.onUserSearchClick}>
+          Search
+        </button>
+      </form>
     </div>
   );
 }
