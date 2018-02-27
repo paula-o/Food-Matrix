@@ -96,12 +96,20 @@ class App extends React.Component {
 
   //add get request for new recipes from server
   onRecipeSearchClick(e) {
+    //prevent the component from re-rendering when recipe search form is submitted
     e.preventDefault();
     console.log(this.state.recipeSearch + ' was searched');
+    //if user enters multiple ingredients that are not comma delimited, make them comma delimited
+    var searchIngredients;
+    if (!this.state.recipeSearch.includes(',')) {
+      searchIngredients = this.state.recipeSearch.split(' ').join(', ');
+    } else {
+      searchIngredients = this.state.recipeSearch;
+    }
     var component = this;
     $.ajax({
       type: 'GET',
-      url: '/recipes?ingredients=' + component.state.recipeSearch,
+      url: '/recipes?ingredients=' + searchIngredients,
       success:function(recipesData) {
         component.setState({
           recipeList: recipesData
