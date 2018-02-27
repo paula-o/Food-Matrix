@@ -136,7 +136,7 @@ class FocalRecipe extends React.Component {
         }
         <div class="two ui buttons">
           <button
-              class="ui button"
+              class="ui green button"
               onClick={this.sendNumber}>
               Send Text
           </button>
