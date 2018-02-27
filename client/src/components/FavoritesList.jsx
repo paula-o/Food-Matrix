@@ -1,6 +1,7 @@
 import React from 'react';
 import RecipeEntry from './RecipeEntry.jsx';
 
+//add random favorites default
 var FavoritesList = (props) => {
   return (
     <div>

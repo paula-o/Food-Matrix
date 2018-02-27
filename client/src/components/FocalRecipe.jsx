@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import ErrorMessage from './Error.jsx';
+
 
 class FocalRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      phoneNumber: '',
       areaCode: '',
       prefix: '',
-      lineNum: ''
+      lineNum: '',
+      phoneError: false
     };
     this.sendNumber = this.sendNumber.bind(this);
     this.onAreaCodeEntry = this.onAreaCodeEntry.bind(this);
@@ -39,10 +41,14 @@ class FocalRecipe extends React.Component {
   }
 
   sendNumber() {
-    console.log('sending phone number');
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
-    var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name + ', ', '');
-    ingredientsMessage = ingredientsMessage.slice(0, -2);
+    if (phoneNumber.length !== 11) {
+      this.setState({
+        phoneError: !this.state.phoneError 
+      });
+    } else {
+      var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name + ', ', '');
+      ingredientsMessage = ingredientsMessage.slice(0, -2);
       $.ajax({
         method: 'POST',
         url: '/sendText',
@@ -57,7 +63,9 @@ class FocalRecipe extends React.Component {
         error: (err) => {
           console.log('phone number failed to send');
         }
-    });
+      });
+    }
+    preventDefault();
   }
 
   render() {
@@ -95,20 +103,25 @@ class FocalRecipe extends React.Component {
                 <input value={this.state.lineNum} onChange={this.onLineNumEntry} type="text" placeholder="xxxx" />
               </div>
             </div>
+            <button
+              class="ui button"
+              onClick={this.sendNumber}>
+              Send
+            </button>
+            <button
+              class="ui red button"
+              onClick={this.props.addFavorite}>
+              <i class="heart icon"></i>
+              Favorite
+            </button>
           </div>
         </form>
-
-        <button
-          class="ui button"
-          onClick={this.sendNumber}>
-          Send
-        </button>
-        <button
-          class="ui red button"
-          onClick={this.props.addFavorite}>
-          <i class="heart icon"></i>
-          Favorite
-        </button>
+        {  
+          this.state.phoneError ? 
+            <ErrorMessage
+            message = {"Invalid Error Message"}
+            /> : null
+        }
       </div>
     );
   }
