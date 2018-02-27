@@ -150,7 +150,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
+      <div class="ui two column stackable grid">
+      <div class="column">
       <div class="ui segment">
         <div >
           <FocalRecipe
@@ -161,7 +162,9 @@ class App extends React.Component {
           />
         </div>
       </div>
+      </div>
 
+      <div class="column">
       <div class="ui segment">
         <div>
           <SearchRecipe
@@ -176,6 +179,8 @@ class App extends React.Component {
           onUserSearch = {this.onUserSearch}
           />
         </div>
+      </div>
+      </div>
       </div>
 
       <FavoritesList
