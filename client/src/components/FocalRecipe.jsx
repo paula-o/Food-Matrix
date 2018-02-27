@@ -23,28 +23,26 @@ class FocalRecipe extends React.Component {
     this.setState({
       areaCode: e.target.value
     })
-    console.log(e.target.value);
   }
 
   onPrefixEntry(e) {
     this.setState({
       prefix: e.target.value
     })
-    console.log(e.target.value);
   }
 
   onLineNumEntry(e) {
     this.setState({
       lineNum: e.target.value
     })
-    console.log(e.target.value);
   }
 
   sendNumber() {
+    console.log('phoneclicked');
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
     if (phoneNumber.length !== 11) {
       this.setState({
-        phoneError: !this.state.phoneError 
+        phoneError: true 
       });
     } else {
       var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name + ', ', '');
@@ -65,63 +63,67 @@ class FocalRecipe extends React.Component {
         }
       });
     }
-    preventDefault();
+    //preventDefault();
   }
 
   render() {
     return (
       <div>
-      <div>
-        <h3>Focal Recipe</h3>
-          <ul>
-            <div>{this.props.focalRecipe.title} </div>
-            <div> <img src={this.props.focalRecipe.image}alt="" /> </div>
-          </ul>
         <div>
-          <h5>Ingredients List</h5>
-            {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
-              <ul key={ingredient}> {ingredient.originalString} </ul>
-            )}
+          <h3>Focal Recipe</h3>
+            <ul>
+              <div>{this.props.focalRecipe.title} </div>
+              <div> <img src={this.props.focalRecipe.image}alt="" /> </div>
+            </ul>
+          <div>
+            <h5>Ingredients List</h5>
+              {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
+                <ul key={ingredient}> {ingredient.originalString} </ul>
+              )}
+          </div>
         </div>
-      </div>
 
         <form class="ui form">
+                          <label>Phone Number</label>
+
           <div class="inline fields">
-            <div class="field">
-              <label>Phone Number</label>
-              <div class="ui input">
-                <input value={this.state.areaCode} onChange={this.onAreaCodeEntry} type="text" placeholder="(xxx)" />
+              <div class="field">
+
+                <div class="ui input">
+                  <input value={this.state.areaCode} onChange={this.onAreaCodeEntry} type="text" placeholder="(xxx)" />
+                </div>
               </div>
-            </div>
-            <div class="field">
-              <div class="ui input">
-                <input value={this.state.prefix} onChange={this.onPrefixEntry} type="text" placeholder="xxx" />
+              <div class="field">
+                <div class="ui input">
+                  <input value={this.state.prefix} onChange={this.onPrefixEntry} type="text" placeholder="xxx" />
+                </div>
               </div>
-            </div>
-            <div class="field">
-              <div class="ui input">
-                <input value={this.state.lineNum} onChange={this.onLineNumEntry} type="text" placeholder="xxxx" />
+              <div class="field">
+                <div class="ui input">
+                  <input value={this.state.lineNum} onChange={this.onLineNumEntry} type="text" placeholder="xxxx" />
+                </div>
               </div>
-            </div>
-            <button
-              class="ui button"
-              onClick={this.sendNumber}>
-              Send
-            </button>
-            <button
-              class="ui red button"
-              onClick={this.props.addFavorite}>
-              <i class="heart icon"></i>
-              Favorite
-            </button>
           </div>
         </form>
         {  
           this.state.phoneError ? 
             <ErrorMessage
-            message = {"Invalid Error Message"}
+              message = {"Invalid Phone Number"}
             /> : null
         }
+        <div>
+          <button
+              class="ui button"
+              onClick={this.sendNumber}>
+              Send
+          </button>
+          <button
+              class="ui red button"
+              onClick={this.props.addFavorite}>
+              <i class="heart icon"></i>
+              Favorite
+          </button>
+        </div>
       </div>
     );
   }
