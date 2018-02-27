@@ -2,13 +2,13 @@ import React from 'react';
 
 var SearchUser = (props) => {
   return (
-    <div>
+    <div class="ui segment">
       <form class="ui form">
         <div class="ui field">
-          <label>Friend Search</label>
+          <div class="ui header small">Friend Search</div>
           <input value={props.userSearch} onChange={props.onUserSearch}/>
         </div>
-        <button class="ui button"
+        <button class="ui fluid blue button"
           onClick={props.onUserSearchClick}>
           Search
         </button>

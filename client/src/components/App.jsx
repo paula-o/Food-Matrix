@@ -176,7 +176,6 @@ class App extends React.Component {
         </div>
 
         <div class="six wide column">
-          <div class="ui segment">
             <div>
               <SearchRecipe
               onRecipeSearch = {this.onRecipeSearch}
@@ -190,7 +189,6 @@ class App extends React.Component {
               onUserSearch = {this.onUserSearch}
               />
             </div>
-          </div>
         </div>
       </div>
 
