@@ -63,6 +63,7 @@ class FocalRecipe extends React.Component {
   render() {
     return (
       <div>
+      <div>
         <h3>Focal Recipe</h3>
           <ul>
             <div>{this.props.focalRecipe.title} </div>
@@ -74,6 +75,7 @@ class FocalRecipe extends React.Component {
               <ul key={ingredient}> {ingredient.originalString} </ul>
             )}
         </div>
+      </div>
 
         <form class="ui form">
           <div class="inline fields">
@@ -97,11 +99,14 @@ class FocalRecipe extends React.Component {
         </form>
 
         <button
+          class="ui button"
           onClick={this.sendNumber}>
           Send
         </button>
         <button
+          class="ui red button"
           onClick={this.props.addFavorite}>
+          <i class="heart icon"></i>
           Favorite
         </button>
       </div>

@@ -135,12 +135,14 @@ class App extends React.Component {
       </div> */}
 
       <div class="ui grid">
-        <FocalRecipe class="10 wide column"
-        focalRecipe = {this.state.focalRecipe}
-        recipeList = {this.state.recipeList}
-        addFavorite = {this.addFavorite}
-        />
-        <div class="6 wide column">
+        <div class="eight wide column">
+          <FocalRecipe
+          focalRecipe = {this.state.focalRecipe}
+          recipeList = {this.state.recipeList}
+          addFavorite = {this.addFavorite}
+          />
+        </div>
+        <div class="eight wide column">
           <SearchRecipe
           onRecipeSearch = {this.onRecipeSearch}
           onRecipeSearchClick = {this.onRecipeSearchClick}

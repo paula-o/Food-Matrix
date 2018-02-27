@@ -3,12 +3,17 @@ import React from 'react';
 var SearchRecipe = (props) => {
   return (
     <div>
-      <h5>Search Recipe</h5>
-      <input value={props.recipeSearch} onChange={props.onRecipeSearch}/>
-      <button 
-        onClick={props.onRecipeSearchClick}> 
-        Search
-      </button>
+      <form class="ui form">
+        <div class="field">
+          <label>Search Recipe</label>
+          <input value={props.recipeSearch} name="search-recipe" type="text" onChange={props.onRecipeSearch}/>
+        </div>
+        <button
+          class="ui button"
+          onClick={props.onRecipeSearchClick}>
+          Search
+        </button>
+      </form>
     </div>
   );
 }
