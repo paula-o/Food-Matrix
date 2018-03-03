@@ -55,7 +55,8 @@ class App extends React.Component {
   onUserSearchClick(e) {
     e.preventDefault();
     this.setState({
-      currentUser: this.state.userSearch + "'s"
+      currentUser: this.state.userSearch + "'s",
+      favoriteError: false
     })
     let component = this;
     $.ajax({
