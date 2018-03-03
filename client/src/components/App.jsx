@@ -35,16 +35,18 @@ class App extends React.Component {
 
   //When recipe in either favorites or all recipes list is clicked, make API request for more detailed data object for target recipe and load into focal recipe component
   onRecipeClick (recipe) {
-    console.log('recipeClicked!');
     var component = this;
     $.ajax({
       type: 'GET',
       url: '/recipe/' + recipe.id,
       success: function(recipe) {
-        console.log(recipe);
         component.setState({
           focalRecipe: recipe
+
         });
+      },
+      error: function(err) {
+        console.log(err);
       }
     });
   }
@@ -52,7 +54,6 @@ class App extends React.Component {
   //search for username in database and pull all favorited recipes for that user
   onUserSearchClick(e) {
     e.preventDefault();
-    console.log(this.state.userSearch, 'was clicked')
     this.setState({
       currentUser: this.state.userSearch + "'s"
     })
@@ -62,7 +63,6 @@ class App extends React.Component {
       url: '/db/fetch',
       data: 'username=' + component.state.userSearch,
       success: function(favRecipesData) {
-        console.log('success!')
         component.setState({
           favoriteList: favRecipesData,
         });
@@ -77,21 +77,18 @@ class App extends React.Component {
     this.setState({
       userSearch: e.target.value
     });
-    console.log(this.state.userSearch);
   }
 
   onRecipeSearch(e) {
     this.setState({
       recipeSearch: e.target.value
     });
-    console.log(this.state.recipeSearch);
   }
 
   //add get request for new recipes from server
   onRecipeSearchClick(e) {
     //prevent the component from re-rendering when recipe search form is submitted
     e.preventDefault();
-    console.log(this.state.recipeSearch + ' was searched');
     //if user enters multiple ingredients that are not comma delimited, make them comma delimited
     var searchIngredients;
     if (!this.state.recipeSearch.includes(',')) {
@@ -131,13 +128,14 @@ class App extends React.Component {
         url: '/db/save',
         data: {
           username: component.state.userSearch,
-          recipeID: component.state.focalRecipe.id,
+          id: component.state.focalRecipe.id,
           title: component.state.focalRecipe.title,
           image: component.state.focalRecipe.image,
-          likes: component.state.focalRecipe.likes
+          likes: component.state.focalRecipe.likes,
+          extendedIngredients: component.state.focalRecipe.extendedIngredients
         },
         success: (res) => {
-          component.onUserSearchClick();
+          //component.onUserSearchClick();
           component.setState({
             favoriteSuccess: true
           })
@@ -199,8 +197,6 @@ class App extends React.Component {
     );
   }
 }
-
-
 
 var favoriteRecipes = {fakeRecipes: [
     {
@@ -272,21 +268,33 @@ var recipeObj = {fakeRecipes: [
 ]}
 
 var sampleRecipe =
-{
+{   "id": 197109,
     "sourceUrl": "http://www.myrecipes.com/recipe/slow-cooker-pot-roast-50400000131366/",
     "spoonacularSourceUrl": "https://spoonacular.com/four-ingredient-slow-cooker-pot-roast-197109",
     "extendedIngredients": [
         {
-            "originalString": "1 (12-oz.) can beer"
+            "originalString": "1 (12-oz.) can beer",
+            "name": "beer",
+            "amount": 12,
+            "unit": "oz"
         },
         {
-            "originalString": "1 tablespoon canola oil"
+            "originalString": "1 tablespoon canola oil",
+            "name": "canola oil",
+            "amount": 1,
+            "unit": "tablespoon"
         },
         {
-            "originalString": "1 (3- to 4-lb.) chuck roast, trimmed"
+            "originalString": "1 (3- to 4-lb.) chuck roast, trimmed",
+            "name": "chuck roast",
+            "amount": 3,
+            "unit": "lb"
         },
         {
-            "originalString": "1 (0.7-oz.) envelope Italian dressing mix"
+            "originalString": "1 (0.7-oz.) envelope Italian dressing mix",
+            "name": "ranch dressing mix",
+            "amount": 0.7,
+            "unit": "oz"
         }
     ],
     "title": "Four-Ingredient Slow-Cooker Pot Roast",

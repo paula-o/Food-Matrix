@@ -52,7 +52,8 @@ class FocalRecipe extends React.Component {
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
     if (phoneNumber.length !== 11) {
       this.setState({
-        phoneError: true
+        phoneError: true,
+        phoneSuccess: false
       });
     } else {
       this.setState({
@@ -83,7 +84,6 @@ class FocalRecipe extends React.Component {
   }
 
   render() {
-    {console.log(this.props.focalRecipe.sourceUrl)}
     return (
       <div>
 
@@ -111,8 +111,6 @@ class FocalRecipe extends React.Component {
           </div>
 
       </div>
-
-
 
         <form class="ui form">
           <div class="ui header small">Text Ingredients</div>

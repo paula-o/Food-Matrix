@@ -20,6 +20,7 @@ app.post('/db/save', (req, res) => {
   //   image: 'awesomepic.jpg',
   //   likes: '1351563'
   // }
+  console.log(documentObj);
   db.save(documentObj)
     .then(response => res.send('saved to db'));
 });

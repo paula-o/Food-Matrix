@@ -11,7 +11,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 let userFavoriteSchema = mongoose.Schema({
   username: String,
-  recipeID: Number,
+  id: Number,
   title: String,
   image: String,
   dateCreated: {
@@ -30,10 +30,11 @@ let save = (documentObj) => {
   return new Promise(function(resolve, reject) {
     let document = new UserFavorite({
       username: documentObj.username,
-      recipeID: documentObj.id,
+      id: documentObj.id,
       title: documentObj.title,
       image: documentObj.image,
-      likes: documentObj.likes
+      likes: documentObj.likes,
+      extendedIngredients: documentObj.extendedIngredients
     });
     document.save(function(err, favorite) {
       if (err) reject(err);

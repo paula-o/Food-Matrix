@@ -3,12 +3,14 @@ import RecipeEntry from './RecipeEntry.jsx';
 
 //add random favorites default
 var FavoritesList = (props) => {
+  {console.log('favoriteslist', props.favoriteList)}
   return (
     <div class="ui segment">
       <h3>{props.currentUser} Favorites </h3>
 
       <div class="ui five link cards">
         {props.favoriteList.map((recipe) =>
+
           <div class="card" onClick = {() => props.onRecipeClick(recipe)}>
 
             <div class="image">
