@@ -8,6 +8,10 @@ import FocalRecipe from './FocalRecipe.jsx';
 import RecipeEntry from './RecipeEntry.jsx';
 import SearchUser from './SearchUser.jsx';
 
+const style = {
+  color: "#88C057"
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +22,8 @@ class App extends React.Component {
       focalRecipe: sampleRecipe,
       userSearch: '',
       recipeSearch: '',
-      favoriteError: false
+      favoriteError: false,
+      favoriteSuccess: false
     };
     this.onRecipeClick = this.onRecipeClick.bind(this);
     this.addFavorite = this.addFavorite.bind(this);
@@ -49,7 +54,7 @@ class App extends React.Component {
     e.preventDefault();
     console.log(this.state.userSearch, 'was clicked')
     this.setState({
-      currentUser: this.state.userSearch
+      currentUser: this.state.userSearch + "'s"
     })
     let component = this;
     $.ajax({
@@ -80,7 +85,6 @@ class App extends React.Component {
       recipeSearch: e.target.value
     });
     console.log(this.state.recipeSearch);
-
   }
 
   //add get request for new recipes from server
@@ -112,16 +116,15 @@ class App extends React.Component {
 
   //post request to store favorite in database for user
   addFavorite (recipe) {
-    console.log('clicked');
     var component = this;
     if (component.state.userSearch === '') {
-      this.setState({
+      component.setState({
         favoriteError: true
       });
       console.log(this.state.favoriteError, 'error');
     } else {
-      this.setState({
-        favoriteError: false
+      component.setState({
+        favoriteError: false,
       });
       $.ajax({
         method: 'POST',
@@ -135,6 +138,9 @@ class App extends React.Component {
         },
         success: (res) => {
           component.onUserSearchClick();
+          component.setState({
+            favoriteSuccess: true
+          })
         },
         error: (err) => {
           console.log(err);
@@ -155,6 +161,7 @@ class App extends React.Component {
               recipeList = {this.state.recipeList}
               addFavorite = {this.addFavorite}
               favoriteError = {this.state.favoriteError}
+              favoriteSuccess = {this.state.favoriteSuccess}
               />
             </div>
           </div>
@@ -266,6 +273,7 @@ var recipeObj = {fakeRecipes: [
 
 var sampleRecipe =
 {
+    "sourceUrl": "http://www.myrecipes.com/recipe/slow-cooker-pot-roast-50400000131366/",
     "spoonacularSourceUrl": "https://spoonacular.com/four-ingredient-slow-cooker-pot-roast-197109",
     "extendedIngredients": [
         {

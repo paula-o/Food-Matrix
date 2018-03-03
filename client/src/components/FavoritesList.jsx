@@ -5,7 +5,7 @@ import RecipeEntry from './RecipeEntry.jsx';
 var FavoritesList = (props) => {
   return (
     <div class="ui segment">
-      <h3>Favorites </h3>
+      <h3>{props.currentUser} Favorites </h3>
 
       <div class="ui five link cards">
         {props.favoriteList.map((recipe) =>
@@ -31,28 +31,8 @@ var FavoritesList = (props) => {
           </div>
         )}
       </div>    
-
-
     </div>
   );
 }
 
 export default FavoritesList;
-
-
-
-
-
-
-    // <div class="ui segment">
-    //   <h3 class="ui header">{props.currentUser} Favorites</h3>
-    //   <div class="ui grid">
-    //     {props.favoriteList.map((recipe) =>
-    //       <ul>
-    //         <RecipeEntry recipe={recipe}
-    //         onRecipeClick = {props.onRecipeClick}
-    //         />
-    //       </ul>
-    //     )}
-    //   </div>
-    // </div>

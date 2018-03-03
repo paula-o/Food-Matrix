@@ -2,9 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import ErrorMessage from './Error.jsx';
+import SuccessMessage from './Success.jsx';
+
 
 const inputStyle = {
   width: 50
+}
+
+const style = {
+  backgroundColor: "#88C057"
 }
 
 class FocalRecipe extends React.Component {
@@ -14,7 +20,8 @@ class FocalRecipe extends React.Component {
       areaCode: '',
       prefix: '',
       lineNum: '',
-      phoneError: false
+      phoneError: false,
+      phoneSuccess: false
     };
     this.sendNumber = this.sendNumber.bind(this);
     this.onAreaCodeEntry = this.onAreaCodeEntry.bind(this);
@@ -42,7 +49,6 @@ class FocalRecipe extends React.Component {
 
   //send text message to user-inputted phone number, containing ingredients from recipe data loaded into the focal recipe component
   sendNumber() {
-    console.log('phoneclicked');
     var phoneNumber = '1' + this.state.areaCode + this.state.prefix + this.state.lineNum;
     if (phoneNumber.length !== 11) {
       this.setState({
@@ -55,6 +61,7 @@ class FocalRecipe extends React.Component {
       //Overly complex algorithm for creating ingredients string to send through text
       var ingredientsMessage = 'Could you please make me ' + this.props.focalRecipe.title + '? ' + 'The ingredients needed are: ' + this.props.focalRecipe.extendedIngredients.reduce((ingredients, ingredient) => ingredients + ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name + ', ', '');
       ingredientsMessage = ingredientsMessage.slice(0, -2);
+      var component = this;
       $.ajax({
         method: 'POST',
         url: '/sendText',
@@ -64,7 +71,9 @@ class FocalRecipe extends React.Component {
         }),
         contentType: 'application/json',
         success: (res) => {
-          console.log('phone number sent!')
+          component.setState({
+            phoneSuccess: true
+          })
         },
         error: (err) => {
           console.log('phone number failed to send');
@@ -74,14 +83,17 @@ class FocalRecipe extends React.Component {
   }
 
   render() {
+    {console.log(this.props.focalRecipe.sourceUrl)}
     return (
       <div>
 
       <div class="ui two column stackable grid">
         <div class="10 wide column">
           <h3>{this.props.focalRecipe.title}</h3>
-          <div class="ui centered image">
-            <img src={this.props.focalRecipe.image}/>
+          <div class="ui centered rounded image">
+            <a href={this.props.focalRecipe.sourceUrl} target="_blank">
+              <img src={this.props.focalRecipe.image}/>
+            </a>
           </div>
         </div>
         <div class="6 wide column">
@@ -129,14 +141,27 @@ class FocalRecipe extends React.Component {
             /> : null
         }
         {
+          this.state.phoneSuccess ?
+            <SuccessMessage
+              message = {"Text Sent!"}
+            /> : null
+        }
+        {
           this.props.favoriteError ?
             <ErrorMessage
               message = {"Enter a username before adding a favorite"}
             /> : null
         }
+        {
+          this.props.favoriteSuccess ?
+            <SuccessMessage
+              message = {"Added to Favorites!"}
+            /> : null
+        }
         <div class="two ui buttons">
           <button
-              class="ui green button"
+              style = {style}
+              class="ui button"
               onClick={this.sendNumber}>
               Send Text
           </button>
@@ -153,19 +178,3 @@ class FocalRecipe extends React.Component {
 }
 
 export default FocalRecipe;
-
-
-
-   // <div>
-   //        <h3>Main Recipe</h3>
-   //          <ul>
-   //            <div>{this.props.focalRecipe.title} </div>
-   //            <div> <img src={this.props.focalRecipe.image}alt="" /> </div>
-   //          </ul>
-   //        <div>
-   //          <h5>Ingredients</h5>
-   //            {this.props.focalRecipe.extendedIngredients.map((ingredient) =>
-   //              <ul key={ingredient}> {ingredient.originalString} </ul>
-   //            )}
-   //        </div>
-   //      </div>
