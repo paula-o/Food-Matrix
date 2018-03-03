@@ -90,9 +90,9 @@ class FocalRecipe extends React.Component {
       <div class="ui two column stackable grid">
         <div class="10 wide column">
           <h3>{this.props.focalRecipe.title}</h3>
-          <div class="ui centered rounded image">
+          <div>
             <a href={this.props.focalRecipe.sourceUrl} target="_blank">
-              <img src={this.props.focalRecipe.image}/>
+              <img class="ui centered rounded image" src={this.props.focalRecipe.image}/>
             </a>
           </div>
         </div>
