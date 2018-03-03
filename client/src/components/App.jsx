@@ -28,21 +28,6 @@ class App extends React.Component {
     this.onRecipeSearchClick = this.onRecipeSearchClick.bind(this);
   }
 
-//When page loads, add in pot roast as featured recipe
-  componentDidMount() {
-    var component = this;
-    $.ajax({
-      type: 'GET',
-      url: '/recipe/197109',
-      success: function(recipe) {
-        console.log(recipe);
-        component.setState({
-          focalRecipe: recipe
-        });
-      }
-    });
-  }
-
   //When recipe in either favorites or all recipes list is clicked, make API request for more detailed data object for target recipe and load into focal recipe component
   onRecipeClick (recipe) {
     console.log('recipeClicked!');
@@ -209,7 +194,6 @@ class App extends React.Component {
 }
 
 
-//sample data to render
 
 var favoriteRecipes = {fakeRecipes: [
     {
@@ -280,13 +264,25 @@ var recipeObj = {fakeRecipes: [
     }
 ]}
 
-
-var sampleRecipe = {
-  "id": 65597,
-  "title": "Cinnamon Streusel Muffins",
-  "image": "https://spoonacular.com/recipeImages/65597-312x231.jpg",
-  "likes": 0,
-  "extendedIngredients": ['ingredient1', 'ingredient2', 'ingredient3', 'ingredient4', 'ingredient5','ingredient6', 'ingredient7', 'ingredient8']
+var sampleRecipe =
+{
+    "spoonacularSourceUrl": "https://spoonacular.com/four-ingredient-slow-cooker-pot-roast-197109",
+    "extendedIngredients": [
+        {
+            "originalString": "1 (12-oz.) can beer"
+        },
+        {
+            "originalString": "1 tablespoon canola oil"
+        },
+        {
+            "originalString": "1 (3- to 4-lb.) chuck roast, trimmed"
+        },
+        {
+            "originalString": "1 (0.7-oz.) envelope Italian dressing mix"
+        }
+    ],
+    "title": "Four-Ingredient Slow-Cooker Pot Roast",
+    "image": "https://spoonacular.com/recipeImages/197109-556x370.jpg"
 }
 
 export default App;
