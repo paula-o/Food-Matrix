@@ -8,6 +8,10 @@ import FocalRecipe from './FocalRecipe.jsx';
 import RecipeEntry from './RecipeEntry.jsx';
 import SearchUser from './SearchUser.jsx';
 
+const style = {
+  color: "#88C057"
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +22,8 @@ class App extends React.Component {
       focalRecipe: sampleRecipe,
       userSearch: '',
       recipeSearch: '',
-      favoriteError: false
+      favoriteError: false,
+      favoriteSuccess: false
     };
     this.onRecipeClick = this.onRecipeClick.bind(this);
     this.addFavorite = this.addFavorite.bind(this);
@@ -28,33 +33,20 @@ class App extends React.Component {
     this.onRecipeSearchClick = this.onRecipeSearchClick.bind(this);
   }
 
-//When page loads, add in pot roast as featured recipe
-  componentDidMount() {
-    var component = this;
-    $.ajax({
-      type: 'GET',
-      url: '/recipe/197109',
-      success: function(recipe) {
-        console.log(recipe);
-        component.setState({
-          focalRecipe: recipe
-        });
-      }
-    });
-  }
-
   //When recipe in either favorites or all recipes list is clicked, make API request for more detailed data object for target recipe and load into focal recipe component
   onRecipeClick (recipe) {
-    console.log('recipeClicked!');
     var component = this;
     $.ajax({
       type: 'GET',
       url: '/recipe/' + recipe.id,
       success: function(recipe) {
-        console.log(recipe);
         component.setState({
           focalRecipe: recipe
+
         });
+      },
+      error: function(err) {
+        console.log(err);
       }
     });
   }
@@ -62,9 +54,9 @@ class App extends React.Component {
   //search for username in database and pull all favorited recipes for that user
   onUserSearchClick(e) {
     e.preventDefault();
-    console.log(this.state.userSearch, 'was clicked')
     this.setState({
-      currentUser: this.state.userSearch
+      currentUser: this.state.userSearch + "'s",
+      favoriteError: false
     })
     let component = this;
     $.ajax({
@@ -72,7 +64,6 @@ class App extends React.Component {
       url: '/db/fetch',
       data: 'username=' + component.state.userSearch,
       success: function(favRecipesData) {
-        console.log('success!')
         component.setState({
           favoriteList: favRecipesData,
         });
@@ -87,22 +78,18 @@ class App extends React.Component {
     this.setState({
       userSearch: e.target.value
     });
-    console.log(this.state.userSearch);
   }
 
   onRecipeSearch(e) {
     this.setState({
       recipeSearch: e.target.value
     });
-    console.log(this.state.recipeSearch);
-
   }
 
   //add get request for new recipes from server
   onRecipeSearchClick(e) {
     //prevent the component from re-rendering when recipe search form is submitted
     e.preventDefault();
-    console.log(this.state.recipeSearch + ' was searched');
     //if user enters multiple ingredients that are not comma delimited, make them comma delimited
     var searchIngredients;
     if (!this.state.recipeSearch.includes(',')) {
@@ -127,29 +114,32 @@ class App extends React.Component {
 
   //post request to store favorite in database for user
   addFavorite (recipe) {
-    console.log('clicked');
     var component = this;
     if (component.state.userSearch === '') {
-      this.setState({
+      component.setState({
         favoriteError: true
       });
       console.log(this.state.favoriteError, 'error');
     } else {
-      this.setState({
-        favoriteError: false
+      component.setState({
+        favoriteError: false,
       });
       $.ajax({
         method: 'POST',
         url: '/db/save',
         data: {
           username: component.state.userSearch,
-          recipeID: component.state.focalRecipe.id,
+          id: component.state.focalRecipe.id,
           title: component.state.focalRecipe.title,
           image: component.state.focalRecipe.image,
-          likes: component.state.focalRecipe.likes
+          likes: component.state.focalRecipe.likes,
+          extendedIngredients: component.state.focalRecipe.extendedIngredients
         },
         success: (res) => {
-          component.onUserSearchClick();
+          //component.onUserSearchClick();
+          component.setState({
+            favoriteSuccess: true
+          })
         },
         error: (err) => {
           console.log(err);
@@ -170,6 +160,7 @@ class App extends React.Component {
               recipeList = {this.state.recipeList}
               addFavorite = {this.addFavorite}
               favoriteError = {this.state.favoriteError}
+              favoriteSuccess = {this.state.favoriteSuccess}
               />
             </div>
           </div>
@@ -207,9 +198,6 @@ class App extends React.Component {
     );
   }
 }
-
-
-//sample data to render
 
 var favoriteRecipes = {fakeRecipes: [
     {
@@ -280,13 +268,38 @@ var recipeObj = {fakeRecipes: [
     }
 ]}
 
-
-var sampleRecipe = {
-  "id": 65597,
-  "title": "Cinnamon Streusel Muffins",
-  "image": "https://spoonacular.com/recipeImages/65597-312x231.jpg",
-  "likes": 0,
-  "extendedIngredients": ['ingredient1', 'ingredient2', 'ingredient3', 'ingredient4', 'ingredient5','ingredient6', 'ingredient7', 'ingredient8']
+var sampleRecipe =
+{   "id": 197109,
+    "sourceUrl": "http://www.myrecipes.com/recipe/slow-cooker-pot-roast-50400000131366/",
+    "spoonacularSourceUrl": "https://spoonacular.com/four-ingredient-slow-cooker-pot-roast-197109",
+    "extendedIngredients": [
+        {
+            "originalString": "1 (12-oz.) can beer",
+            "name": "beer",
+            "amount": 12,
+            "unit": "oz"
+        },
+        {
+            "originalString": "1 tablespoon canola oil",
+            "name": "canola oil",
+            "amount": 1,
+            "unit": "tablespoon"
+        },
+        {
+            "originalString": "1 (3- to 4-lb.) chuck roast, trimmed",
+            "name": "chuck roast",
+            "amount": 3,
+            "unit": "lb"
+        },
+        {
+            "originalString": "1 (0.7-oz.) envelope Italian dressing mix",
+            "name": "ranch dressing mix",
+            "amount": 0.7,
+            "unit": "oz"
+        }
+    ],
+    "title": "Four-Ingredient Slow-Cooker Pot Roast",
+    "image": "https://spoonacular.com/recipeImages/197109-556x370.jpg"
 }
 
 export default App;
