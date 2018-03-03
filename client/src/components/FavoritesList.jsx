@@ -19,15 +19,6 @@ var FavoritesList = (props) => {
               <div class="header">{recipe.title}</div>
             </div>
 
-            <div class="extra content">
-              <span class="right floated">
-                <i class="heart outline icon"></i>
-              </span>
-              <span>
-                Likes: {recipe.likes}
-              </span>
-            </div>
-
           </div>
         )}
       </div>    
